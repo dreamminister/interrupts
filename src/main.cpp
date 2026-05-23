@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-const uint8_t extButtonPin = 6;
+const uint8_t extButtonPin = 7;
 volatile uint32_t raw_counter_ext = 0;
 uint32_t last_ext = 0;
 
@@ -16,5 +16,8 @@ void setup() {
 }
 
 void loop() {
-    Serial.printf("INTERRUPT! Total Count: %u\n", raw_counter_ext);
+    if (raw_counter_ext != last_ext) {
+        last_ext = raw_counter_ext;
+        Serial.printf("INTERRUPT! Total Count: %u\n", raw_counter_ext);
+    }
 }
